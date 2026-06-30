@@ -1,5 +1,4 @@
 name: Build Android APK
-
 on:
   workflow_dispatch:
   push:
@@ -10,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,8 +23,8 @@ jobs:
       - name: Install Android workload
         run: dotnet workload install android
 
-      - name: Restore
-        run: dotnet restore
+      - name: Restore Android project
+        run: dotnet restore GalaxyBudsClient.Android/GalaxyBudsClient.Android.csproj
 
       - name: Publish APK
         run: |
