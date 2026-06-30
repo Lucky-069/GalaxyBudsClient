@@ -26,7 +26,7 @@ jobs:
       - name: Restore Android project
         run: dotnet restore GalaxyBudsClient.Android/GalaxyBudsClient.Android.csproj -p:IsAndroid=true
 
-      - name: Publish APK
+      - name: Publish ARM64 APK only
         run: |
           dotnet publish GalaxyBudsClient.Android/GalaxyBudsClient.Android.csproj `
             -c Release `
@@ -34,7 +34,11 @@ jobs:
             -p:IsAndroid=true `
             -p:NoDemo=true `
             -p:AndroidPackageFormats=apk `
-            -p:RuntimeIdentifier=android-arm64
+            -p:AndroidSupportedAbis=arm64-v8a `
+            -p:AndroidCreatePackagePerAbi=false `
+            -p:PublishTrimmed=true `
+            -p:AndroidLinkMode=Full `
+            -p:StripSymbols=true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
